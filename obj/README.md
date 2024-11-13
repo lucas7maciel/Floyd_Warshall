@@ -1,0 +1,1 @@
+Aqui ficarão os objetos criados para a execução da aplicação
