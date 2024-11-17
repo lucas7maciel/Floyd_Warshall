@@ -1,0 +1,1 @@
+Esta pasta contém 20 inputs de tamanho similar às apresentadas no Bat1.

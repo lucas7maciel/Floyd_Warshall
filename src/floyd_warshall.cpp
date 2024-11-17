@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <climits>
 #include <limits.h>
 #include <string.h>
 #include <fstream>
@@ -55,41 +56,20 @@ void floydWarshall(vector<vector<int>> &dist, int vertices, string outputPath)
 // Função para imprimir a matriz de solução
 void printSolution(const vector<vector<int>> &dist, int vertices, ofstream &outputFile)
 {
-    if (outputFile.is_open())
+    for (int i = 0; i < vertices; ++i)
     {
-        outputFile << "Matriz das distancias mais curtas entre cada par de vertices:\n";
-    }
-    else
-    {
-        cout << "Matriz das distancias mais curtas entre cada par de vertices:\n";
-    }
-
-    for (int i = 0; i < vertices; i++)
-    {
-        // Otimizar essa parte
-        for (int j = 0; j < vertices; j++)
+        for (int j = 0; j < vertices; ++j)
         {
-            if (dist[i][j] == INT_MAX)
+            int distance = dist[i][j] == INT_MAX ? -1 : dist[i][j]; // -1 para distâncias infinitas
+
+            if (outputFile.is_open())
             {
-                if (outputFile.is_open())
-                {
-                    outputFile << "INF ";
-                }
-                else
-                {
-                    cout << "INF ";
-                }
+                outputFile << j + 1 << ":" << distance << " ";
             }
             else
             {
-                if (outputFile.is_open())
-                {
-                    outputFile << dist[i][j] << "   ";
-                }
-                else
-                {
-                    cout << dist[i][j] << "   ";
-                }
+                // Imprime no formato: <vértice>:<distância>
+                printf("%i:%i ", j + 1, distance);
             }
         }
 
@@ -99,7 +79,12 @@ void printSolution(const vector<vector<int>> &dist, int vertices, ofstream &outp
         }
         else
         {
-            cout << endl;
+            printf("\n");
         }
+    }
+
+    if (outputFile.is_open())
+    {
+        outputFile.close();
     }
 }
